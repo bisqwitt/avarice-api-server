@@ -10,6 +10,8 @@ export const SocketEvents = {
 
     ROUND_SCORE_SUBMIT: "roundScoreSubmit",
     ROUND_END_WAITING: "roundEndWaiting",
-    ROUND_END_RESULT: "roundEndResult"
+    ROUND_END_RESULT: "roundEndResult",
 
+    HEALTH_UPDATE: "healthUpdate",
+    OPPONENT_HEALTH_CHANGED: "opponentHealthChanged"
 }

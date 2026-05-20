@@ -19,11 +19,11 @@ export function registerRoundScoreHandlers(io: Server, socket: Socket) {
 
         const roundScore = match.roundEndScores.get(round);
 
-        io.to(match.playerA).emit(SocketEvents.ROUND_END_RESULT, {
+        io.to(match.playerA.id).emit(SocketEvents.ROUND_END_RESULT, {
             //    round,
             opponentScore: roundScore?.getScorePlayerB()
         });
-        io.to(match.playerB).emit(SocketEvents.ROUND_END_RESULT, {
+        io.to(match.playerB.id).emit(SocketEvents.ROUND_END_RESULT, {
             //    round,
             opponentScore: roundScore?.getScorePlayerA()
         });

@@ -31,8 +31,8 @@ export class MatchManager {
         if (!match) return undefined;
 
         this.matches.delete(roomId);
-        this.playerToRoom.delete(match.playerA);
-        this.playerToRoom.delete(match.playerB);
+        this.playerToRoom.delete(match.playerA.id);
+        this.playerToRoom.delete(match.playerB.id);
 
         return match;
     }
