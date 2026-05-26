@@ -2,7 +2,8 @@ import type { Server as HttpServer } from "http";
 import { Server } from "socket.io";
 import { registerHealthHandlers } from "./handlers/healthHandlers";
 import { registerMatchmakingHandlers } from "./handlers/matchmakingHandlers";
-import { registerRoundScoreHandlers } from "./handlers/roundScoreHandlers";
+import { registerScoreHandlers } from "./handlers/scoreHandlers";
+import { registerRoundEndHandlers } from "./handlers/roundEndHandlers";
 
 export function setupSocketServer(httpServer: HttpServer) {
     const io = new Server(httpServer, {
@@ -17,8 +18,9 @@ export function setupSocketServer(httpServer: HttpServer) {
 
         //registerRoomHandlers(io, socket);
         registerMatchmakingHandlers(io, socket);
-        registerRoundScoreHandlers(io, socket);
+        registerRoundEndHandlers(io, socket);
         registerHealthHandlers(io, socket);
+        registerScoreHandlers(io, socket);
 
         socket.on("disconnect", () => {
             console.log("Client disconnected:", socket.id);

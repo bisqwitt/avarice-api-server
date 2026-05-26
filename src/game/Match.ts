@@ -1,31 +1,33 @@
 import { Player } from "./Player";
-import { RoundEndScore } from "./RoundEndScore";
 
 export class Match {
 
-    public roundEndScores: Map<number, RoundEndScore> = new Map();
     public playerA: Player;
     public playerB: Player;
+
+    public playerACompletedRound: boolean = false;
+    public playerBCompletedRound: boolean = false;
 
     constructor(public roomId: string, playerAId: string, playerBId: string) {
         this.playerA = new Player(playerAId, 1000);
         this.playerB = new Player(playerBId, 1000);
     }
 
-    addRoundEndScore(playerId: string, round: number, score: number) {
-        if (!this.roundEndScores.has(round)) {
-            this.roundEndScores.set(round, new RoundEndScore(round));
-        }
+    newRound() {
+        this.playerACompletedRound = false;
+        this.playerBCompletedRound = false;
+    }
 
-        if (playerId === this.playerA.id) {
-            this.roundEndScores.get(round)!.setScorePlayerA(score);
+    playerCompletedRound(playerId: string) {
+        if (this.playerA.id === playerId) {
+            this.playerACompletedRound = true;
         } else {
-            this.roundEndScores.get(round)!.setScorePlayerB(score);
+            this.playerBCompletedRound = true;
         }
     }
 
-    bothPlayersCompletedRound(round: number): boolean {
-        return this.roundEndScores.get(round)?.bothScoresPresent() ?? false;
+    bothPlayersCompletedRound(): boolean {
+        return this.playerACompletedRound && this.playerBCompletedRound;
     }
 
     getPlayerById(id: string): Player {
